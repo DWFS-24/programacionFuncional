@@ -1,15 +1,32 @@
 console.log('hola')
 
+function actualizarUsuario(listaUsuarios, nombreUsuario, datosActualizados) {
+  const nuevaListaUsuarios = listaUsuarios.map(usuario => ({ ...usuario }) )
 
-function calcularArea(longitud, ancho) {
-  if(typeof longitud !== 'number' || typeof ancho !== 'number' || longitud < 0 || ancho < 0) {
-    console.error('Los parámetros deben ser números no negativos.')
+
+  const indiceUsuario = nuevaListaUsuarios.findIndex(usuario => usuario.nombre === nombreUsuario)
+
+  if( indiceUsuario !== -1 ) {
+    nuevaListaUsuarios[indiceUsuario] = {
+      ...nuevaListaUsuarios[indiceUsuario],
+      ...datosActualizados
+    }
+  } else {
+    console.error('El usuario no existe en la lista.')
   }
-  const area = (longitud * ancho).toFixed(2)
-  return parseFloat(area)
+  return nuevaListaUsuarios
 }
 
-const areaRectangulo = calcularArea(5.67, 8.43)
-console.log(areaRectangulo)
+const listaOriginal = [
+  { nombre: 'usuario1', edad: 25, correo: 'usuario1@example.com' },
+  { nombre: 'usuario2', edad: 30, correo: 'usuario2@example.com' },
+  { nombre: 'usuario3', edad: 22, correo: 'usuario3@example.com' }
+];
+console.log('original')
+console.log(listaOriginal)
 
-calcularArea(5.67, '8.43')
+const nuevaLista = actualizarUsuario(listaOriginal, 'usuario2', { edad: 31, ciudad: 'Ciudad1' })
+console.log('nueva')
+console.log(nuevaLista)
+
+
